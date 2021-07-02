@@ -87,7 +87,7 @@ by default.
 |-------------------|-----------|--------------------------------------------------|--------------------------------------------------|
 | `darkMode`        | `String`  | "false"                                          | Choose whether to have the default table styling to be dark mode or not. Done as a string for testing purposes in Storybook. May be changed later. |
 | `editBool`        | `Boolean` | false                                            | Choose whether to have table editable as soon as it opens or not. |
-| `href`            | `string`  | Bootstrap CDN | This is the href used to style the component. By default it is the bootstrap CDN but it can be manually inputted by the user. |
+| `href`            | `string`  | [Bootstrap CDN](https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css) | This is the href used to style the component. By default it is the bootstrap CDN but it can be manually inputted by the user. |
 | `inputCategories` | `string`  | ""                                               | These are the categories for the chart that must be inputted as a string with commas separating categories. |
 | `inputOptions`    | `string`  | ""                                               | These are the options for the chart that must be inputted as a string with commas sepearting score from header but a / separating groupings of entire options. |
 | `inputWeights`    | `string`  | ""                                               | These are the weights for the chart that must be inputted as a string with commas separating weights. |
