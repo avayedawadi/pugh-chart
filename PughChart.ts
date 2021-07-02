@@ -3,41 +3,86 @@ import { repeat } from 'lit/directives/repeat.js';
 import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
-/**
- * A text field web component
- */
-export class PughChart extends LitElement {
 
+/**
+ * 
+ *  @element pugh-chart
+ * 
+ *  
+ * */
+export class PughChart extends LitElement {
+   /**
+  * This is the href used to style the component. By default it is the bootstrap CDN but it can be manually inputted by the user.
+  * @type {string}
+  */
   @property()
   href = "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 
+  /**
+  * This is the table class that is by default table table-striped (from Bootstrap). Can be manually inputted by the user.
+  * @type {string}
+  */
   @property()
   tableClass = "table table-striped"
 
+  /**
+  * thead class that is left blank but can be inputted by the user.
+  * @type {string}
+  */
   @property()
   theadClass = ""
 
+  /**
+  * tr class that is left blank but can be inputted by the user.
+  * @type {string}
+  */
   @property()
   trClass = ""
 
+  /**
+  * td class that is left blank but can be inputted by the user.
+  * @type {string}
+  */
   @property()
   tdClass = ""
 
+  /**
+  * th class that is left blank but can be inputted by the user.
+  * @type {string}
+  */
   @property()
   thClass = ""
 
+  /**
+  * tbody class that is left blank but can be inputted by the user.
+  * @type {string}
+  */
   @property()
   tBodyClass = ""
 
+  /**
+  * These are the categories for the chart that must be inputted as a string with commas separating categories.
+  * @type {string}
+  */
   @property()
   inputCategories = ""
 
+   /**
+  * These are the weights for the chart that must be inputted as a string with commas separating weights.
+  * @type {string}
+  */
   @property()
   inputWeights = ""
 
+   /**
+  * These are the options for the chart that must be inputted as a string with commas sepearting score from header but a / separating groupings of entire options.
+  * @type {string}
+  */
   @property()
   inputOptions = ""
 
+
+  //Categories, weights, and options array that the strings that are inputted are parsed into.
   @property({ type: Array })
   categories: any[] = [];
 
@@ -47,19 +92,30 @@ export class PughChart extends LitElement {
   @property({ type: Array })
   options: any[][] = []
 
+  //2D array that everything is created into.
   @property({ type: Array })
   array: (string | number)[][] = []
 
+  /**
+  * Choose whether to have table editable as soon as it opens or not.
+  * @type {Boolean}
+  */
   @property({type: Boolean})
   editBool = false;
 
+  /**
+  * Choose whether to have the default table styling to be dark mode or not. Done as a string for testing purposes in Storybook. May be changed later.
+  * @type {String}
+  */
   @property()
   darkMode = "false";
 
+  //Checks if this is the firstTime the component is being called.
   @property({type:Boolean})
   firstTime = true;
 
   render() {
+    //If this is the first time the component is being rendered then take the inputted strings and add them to the corresponding arrays.
     if(this.firstTime){
       this.categories = this.inputCategories.split(",");
       this.weights = this.inputWeights.split(",").map(element => parseInt(element));
@@ -67,17 +123,10 @@ export class PughChart extends LitElement {
       this.firstTime = false;
     }
     this.fillArray();
-    /*if(this.editBool){
-      for(var i = 1; i < this.array.length;i++){
-        this.array[i].push(" ");
-      }
-    }else{
-      if(this.array[1][this.array[1].length] === " "){
-        for(var i = 1; i < this.array.length-1;i++){
-          this.array[i].splice(this.array[1].length,1);
-        }
-      }
-    }*/
+    //This call creates the table for me. The settings button at the bottom makes the table editable or not. The code is confusing to read and takes time to understand
+    //but the general gist of it is that the table is created and then everything is created row by row basically. Map is used to iterate through this.array to create everything,
+    //when the editBool is true, the option to edit also becomes available. There are a lot of ternary operators to make everything possible. The code couldn't be encapsulated better
+    //because returning HTML back from a function does not work well in Lit (because of the potential security vulnerabilities).
     return html`
       <link rel="stylesheet" href="${this.href}">
     </div>
@@ -105,12 +154,15 @@ export class PughChart extends LitElement {
 
     `
   }
+
+  //These two querys take in the new criteria and new option that are inputted to the table.
   @query('#newcriteria')
   criteriaInput!: HTMLInputElement;
 
   @query('#newoption')
   optionInput!: HTMLInputElement;
 
+  //Adds a criteria to the table and also adds a score of 0 to all the options for that criteria.
   addCriteria(){
     this.categories.push(this.criteriaInput.value);
     this.weights.push(0);
@@ -121,6 +173,7 @@ export class PughChart extends LitElement {
     this.criteriaInput.value = '';
   }
 
+  //Deletes a criteria form the table and also gets rid of it from all the options.
   deleteCriteria(index:number){
     this.categories.splice(index,1);
     this.weights.splice(index,1);
@@ -129,6 +182,7 @@ export class PughChart extends LitElement {
 
   }
 
+  //Adds a particular option to the table and must be done for all options.
   addOption(){
     var entireOption = [];
     entireOption.push(this.optionInput.value);
@@ -141,13 +195,14 @@ export class PughChart extends LitElement {
 
   }
 
+  //Deletes a particular options.
   deleteOption(index:number){
     this.options.splice(index,1);
     this.requestUpdate();
   }
 
 
-  //Creates the 2D array with all the information that the table will later be created with.
+  //Creates the 2D array with all the information that the table will later be created with. Uses the categories, weights, and options arrays.
   fillArray() {
     if(this.darkMode === "true"){
       console.log("now dark")
@@ -227,7 +282,7 @@ export class PughChart extends LitElement {
   }
 
   
-
+  //All the styling for the web component.
   static styles = css`
     :host {
       display: var(--host-display,block);
