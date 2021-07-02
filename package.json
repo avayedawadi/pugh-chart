@@ -1,9 +1,17 @@
 {
   "name": "pugh-chart",
-  "version": "0.0.0",
-  "description": "Webcomponent pugh-chart following open-wc recommendations",
+  "version": "0.0.2",
+  "description": "Webcomponent pugh-chart built using Lit",
   "main": "dist/pugh-chart.js",
   "module": "dist/pugh-chart.js",
+  "keywords": [
+    "chart",
+    "pugh-chart",
+    "lit",
+    "component",
+    "web component",
+    "rank"
+  ],
   "scripts": {
     "start": "tsc",
     "build": "tsc",
