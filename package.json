@@ -1,0 +1,28 @@
+{
+  "name": "pugh-chart",
+  "version": "0.0.0",
+  "description": "Webcomponent pugh-chart following open-wc recommendations",
+  "main": "dist/pugh-chart.js",
+  "module": "dist/pugh-chart.js",
+  "scripts": {
+    "start": "tsc",
+    "build": "tsc",
+    "prepublish": "tsc"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2",
+    "lit-element": "^2.5.1",
+    "lit-html": "^1.4.1",
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avayedawadi/pugh-chart.git"
+  },
+  "author": "Avaye Dawadi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/avayedawadi/pugh-chart/issues"
+  },
+  "homepage": "https://github.com/avayedawadi/pugh-chart#readme"
+}
